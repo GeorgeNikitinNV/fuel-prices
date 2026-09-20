@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import re
+from urllib.parse import quote
 from datetime import datetime
 
 import paho.mqtt.client as mqtt
@@ -39,7 +40,7 @@ def publish_snapshot(settings: Settings, stations: list[Station], fetched_at: da
     try:
         _publish(client, status_topic, "online")
         for station in stations:
-            entity_id = f"{_slug(station.brand)}_{_slug(station.name)}_{station.provider_id}"
+            entity_id = f"{_slug(station.brand)}_{_slug(station.name)}_{quote(station.provider_id, safe='')}"
             base_topic = f"{settings.mqtt_topic_prefix}/{entity_id}"
             discovery_topic = f"{settings.mqtt_discovery_prefix}/sensor/{entity_id}/config"
             config = {

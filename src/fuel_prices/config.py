@@ -3,6 +3,7 @@ from __future__ import annotations
 import os
 from dataclasses import dataclass
 from pathlib import Path
+from urllib.parse import urlparse
 
 from dotenv import load_dotenv
 
@@ -123,8 +124,13 @@ class Settings:
             raise ValueError("--interval-minutes must be greater than 0")
         if self.timeout_seconds <= 0:
             raise ValueError("--timeout-seconds must be greater than 0")
+        api_url = urlparse(self.api_url)
+        if api_url.scheme != "https" or api_url.hostname != "petrolmate.com.au":
+            raise ValueError("--api-url must be an HTTPS URL on petrolmate.com.au")
         if not 1 <= self.mqtt_port <= 65535:
             raise ValueError("--mqtt-port must be between 1 and 65535")
+        if (self.mqtt_username or self.mqtt_password) and not self.mqtt_tls:
+            raise ValueError("--mqtt-tls is required when MQTT credentials are configured")
         if self.output_format not in {"table", "csv", "tsv", "json"}:
             raise ValueError("--format must be table, csv, tsv, or json")
         if self.sort_by not in {"price", "distance"}:

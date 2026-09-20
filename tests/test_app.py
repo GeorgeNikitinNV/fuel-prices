@@ -35,6 +35,12 @@ class AppTests(unittest.TestCase):
         self.assertEqual(settings.radius_km, 30)
         self.assertEqual(settings.fuel_type, "PULP95")
 
+    def test_sensitive_endpoints_require_tls_and_the_provider_host(self) -> None:
+        with self.assertRaisesRegex(ValueError, "MQTT credentials"):
+            Settings(mqtt_username="user").validate()
+        with self.assertRaisesRegex(ValueError, "petrolmate.com.au"):
+            Settings(api_url="http://example.com").validate()
+
     def test_thirty_km_search_uses_offset_queries(self) -> None:
         settings = Settings(radius_km=30)
         centers = query_centers(settings)
@@ -132,7 +138,7 @@ class AppTests(unittest.TestCase):
                 return Result()
 
         station = Station(
-            provider_id="123",
+            provider_id="123/#",
             name="Gull Te Rapa",
             brand="Gull",
             address="736 Te Rapa Road",
@@ -149,6 +155,7 @@ class AppTests(unittest.TestCase):
         self.assertTrue(any(topic.endswith("/config") for topic, _ in published))
         self.assertTrue(any(topic.endswith("/state") and payload == "3.346" for topic, payload in published))
         self.assertTrue(any('"latitude": -37.753508' in payload for _, payload in published))
+        self.assertTrue(all("#" not in topic for topic, _ in published))
 
 
 if __name__ == "__main__":
