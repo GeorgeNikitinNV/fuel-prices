@@ -35,9 +35,7 @@ class AppTests(unittest.TestCase):
         self.assertEqual(settings.radius_km, 30)
         self.assertEqual(settings.fuel_type, "PULP95")
 
-    def test_sensitive_endpoints_require_tls_and_the_provider_host(self) -> None:
-        with self.assertRaisesRegex(ValueError, "MQTT credentials"):
-            Settings(mqtt_username="user").validate()
+    def test_provider_url_requires_the_provider_host(self) -> None:
         with self.assertRaisesRegex(ValueError, "petrolmate.com.au"):
             Settings(api_url="http://example.com").validate()
 

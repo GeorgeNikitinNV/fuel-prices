@@ -61,7 +61,7 @@ The provider accepts a maximum 25 km request radius. A configured radius above 2
 
 The app publishes one MQTT sensor per station using MQTT Discovery. Each sensor has the price as its state and latitude/longitude, station metadata, fuel type, and timestamps as attributes.
 
-Ensure the Home Assistant MQTT integration and a broker are available, then configure MQTT_HOST with the broker's real hostname or LAN IP. MQTT credentials require TLS. The discovery prefix defaults to homeassistant. Leave MQTT_HOST empty to collect and store prices without publishing to Home Assistant.
+Ensure the Home Assistant MQTT integration and a broker are available, then configure MQTT_HOST with the broker's real hostname or LAN IP. TLS is optional but recommended when using MQTT credentials. The discovery prefix defaults to homeassistant. Leave MQTT_HOST empty to collect and store prices without publishing to Home Assistant.
 
 Add a native map card:
 

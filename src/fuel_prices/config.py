@@ -129,8 +129,6 @@ class Settings:
             raise ValueError("--api-url must be an HTTPS URL on petrolmate.com.au")
         if not 1 <= self.mqtt_port <= 65535:
             raise ValueError("--mqtt-port must be between 1 and 65535")
-        if (self.mqtt_username or self.mqtt_password) and not self.mqtt_tls:
-            raise ValueError("--mqtt-tls is required when MQTT credentials are configured")
         if self.output_format not in {"table", "csv", "tsv", "json"}:
             raise ValueError("--format must be table, csv, tsv, or json")
         if self.sort_by not in {"price", "distance"}:
