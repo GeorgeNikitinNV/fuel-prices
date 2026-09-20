@@ -1,0 +1,15 @@
+README.md
+pyproject.toml
+src/fuel_prices/__init__.py
+src/fuel_prices/cli.py
+src/fuel_prices/config.py
+src/fuel_prices/mqtt.py
+src/fuel_prices/provider.py
+src/fuel_prices/storage.py
+src/fuel_prices.egg-info/PKG-INFO
+src/fuel_prices.egg-info/SOURCES.txt
+src/fuel_prices.egg-info/dependency_links.txt
+src/fuel_prices.egg-info/entry_points.txt
+src/fuel_prices.egg-info/requires.txt
+src/fuel_prices.egg-info/top_level.txt
+tests/test_app.py

@@ -1,0 +1,17 @@
+[project]
+name = "fuel-prices"
+version = "0.2.0"
+description = "Hourly fuel price collection and Home Assistant map publishing"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "paho-mqtt>=2.1.0",
+    "python-dotenv>=1.0.0",
+    "typer>=0.16.0",
+]
+
+[project.scripts]
+fuel-prices = "fuel_prices.cli:app"
+
+[tool.uv]
+package = true

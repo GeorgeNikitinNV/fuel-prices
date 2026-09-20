@@ -1,0 +1,2 @@
+[console_scripts]
+fuel-prices = fuel_prices.cli:app
